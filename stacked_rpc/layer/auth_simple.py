@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """handle a rpc-request using challenge-response-like procedure
     First parameter will be used to send an authentication-token:
-    (counter, hash(counter + psk + session_nonce)
+    (counter, hash(counter + psk + session_nonce))
 
     check:
     => counter musst be bigger than last used one

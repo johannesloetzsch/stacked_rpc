@@ -4,7 +4,7 @@
 from layer import prototype, send_dummy, marshall_xml, send_xmlrpclib, auth_simple
 import stacked_rpc
 
-def getDefaultServer(payload, psk=None, port=None):
+def getDefaultServer(payload, psk=None, port=None, startIn='background'):
     useDummy = port == None
 
     stack = []
@@ -25,7 +25,7 @@ def getDefaultServer(payload, psk=None, port=None):
     if useDummy:
         stack.append((send_dummy, {}))
     else:
-        stack.append((send_xmlrpclib, {'port': port}))
+        stack.append((send_xmlrpclib, {'port': port, 'startIn': startIn}))
 
     return stacked_rpc.getServer(stack)
 

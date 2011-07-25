@@ -4,12 +4,16 @@
 
 import stacked_rpc.system
 
+import threading
+import time
+import select
+
 class Server():
     """Prototype of server (but already working when dispatch is called from outside).
        When you implement your own server, you should only need to overwrite the dispatch-method
        … and of course listen for requests and trigger dispatch for each of them"""
 
-    def __init__(self, nextServer=None, host=None, port=None, payload=None, allow_none=True):
+    def __init__(self, nextServer=None, host=None, port=None, payload=None, startIn='background', allow_none=True):
         self.nextServer = nextServer
 
         if port != None:
@@ -23,6 +27,7 @@ class Server():
         if payload != None:
             self.payload.system = stacked_rpc.system.System(server=self)
 
+        self.startIn = startIn
         self.allow_none = allow_none
 
         if hasattr(self, 'start'):
@@ -54,6 +59,28 @@ class Server():
         else:
             """get property as method with arity 0"""
             return obj_at_payload
+
+    def startThread(self):
+        """can be called by your implementation of start"""
+        assert hasattr(self, 'server_thread_target')
+        if self.startIn == 'foreground':
+            self.startForeground()
+        elif self.startIn == 'background':
+            self.server_thread = threading.Thread(target=self.server_thread_target)
+            self.server_thread.setDaemon(True)
+            self.server_thread.start()
+
+    def startForeground(self):
+        try:
+            self.server_thread_target()
+            while True:
+                time.sleep(1)
+        except KeyboardInterrupt:
+            print '\n'
+        except select.error:
+            print '\n'
+        finally:
+            self.stop()
 
 
 class Proxy():

@@ -7,6 +7,7 @@ import xmlrpclib
 import SimpleXMLRPCServer
 
 import threading
+import time
 
 class Server(prototype.Server):
 
@@ -17,8 +18,8 @@ class Server(prototype.Server):
         self.server.register_instance(self.payload, allow_dotted_names=True)
         self.server._dispatch = self.dispatch
 
-        self.server_thread = threading.Thread(target=self.server.serve_forever)
-        self.server_thread.start()
+        self.server_thread_target = self.server.serve_forever
+        self.startThread()
 
     def stop(self):
         self.server.shutdown()
