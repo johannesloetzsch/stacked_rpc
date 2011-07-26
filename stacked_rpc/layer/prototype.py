@@ -65,7 +65,7 @@ class Server():
         assert hasattr(self, 'server_thread_target')
         if self.startIn == 'foreground':
             self.startForeground()
-        elif self.startIn == 'background':
+        else:
             self.server_thread = threading.Thread(target=self.server_thread_target)
             self.server_thread.setDaemon(True)
             self.server_thread.start()

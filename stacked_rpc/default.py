@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from layer import prototype, send_dummy, marshall_xml, send_xmlrpclib, auth_simple
+from layer import prototype, send_dummy, marshall_xml, send_xmlrpclib, auth_simple, show_ipy
 import stacked_rpc
 
 import socket
@@ -27,6 +27,10 @@ def getDefaultServer(payload, psk=None, port=None, startIn='background'):
         stack.append((send_dummy, {}))
     else:
         stack.append((send_xmlrpclib, {'port': port, 'startIn': startIn}))
+
+    """show ipy"""
+    if startIn == 'ipy':
+        stack.append((show_ipy, {}))
 
     return stacked_rpc.getServer(stack)
 
