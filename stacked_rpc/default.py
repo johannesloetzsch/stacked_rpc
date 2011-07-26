@@ -4,6 +4,8 @@
 from layer import prototype, send_dummy, marshall_xml, send_xmlrpclib, auth_simple
 import stacked_rpc
 
+import socket
+
 def getDefaultServer(payload, psk=None, port=None, startIn='background'):
     useDummy = port == None
 
@@ -29,8 +31,9 @@ def getDefaultServer(payload, psk=None, port=None, startIn='background'):
 
     return stacked_rpc.getServer(stack)
 
-def getDefaultProxy(psk=None, server=None, port=None):
-    useDummy = port == None
+def getDefaultProxy(psk=None, server=None, port=None, useDummy=None):
+    if useDummy == None:
+        useDummy = port == None
 
     stack = []
 
@@ -51,3 +54,12 @@ def getDefaultProxy(psk=None, server=None, port=None):
         stack.append((send_xmlrpclib, {'port': port}))
 
     return stacked_rpc.getProxy(stack)
+
+def getDefaultProxy_fallbackDummy(psk, payload, port):
+
+    try:
+        return getDefaultProxy(useDummy=False, psk=psk, port=port)
+    except socket.error:
+        if payload != None:
+            server_dummy = getDefaultServer(payload=payload)
+            return getDefaultProxy(useDummy=True, server=server_dummy)
