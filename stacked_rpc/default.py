@@ -16,7 +16,6 @@ def getDefaultServer(payload, psk=None, port=None, startIn='background'):
 
     """authentication"""
     if not useDummy:
-        assert psk != None
         stack.append((auth_simple, {'psk': psk}))
 
     """marshalling"""

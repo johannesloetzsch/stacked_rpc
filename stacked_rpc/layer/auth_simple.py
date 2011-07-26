@@ -24,7 +24,12 @@ import random, time, hashlib
 class Server(prototype.Server):
 
     def __init__(self, psk, **kwargs):
+        if psk == None:
+            psk = str(random.randint(0, 2**256))
+            print 'Used PSK: ' + psk
+        assert type(psk) == type('')
         self.psk = psk
+
         prototype.Server.__init__(self, **kwargs)
         self.session_nonce = str(random.randint(0, 2**256))
         self.token_counter_exhausted = 0
