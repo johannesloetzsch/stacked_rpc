@@ -1,0 +1,8 @@
+stacked_rpc — toolkit to create RPC-Server & Proxys satisfying your requirements.
+
+It provides:
+ * Layers for authentication / marshalling / sending over different protocols / …
+ * A mechanism to plug wanted layers together (stacked_rpc.getStacked)
+ * Help to build default Server / Proxy (stacked_rpc.default)
+
+For usage see test_stacked_rpc.py

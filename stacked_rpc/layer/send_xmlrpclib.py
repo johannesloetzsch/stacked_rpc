@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+"""send over xmlrpc"""
 
 import prototype
 

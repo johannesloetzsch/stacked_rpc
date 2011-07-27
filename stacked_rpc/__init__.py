@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-"""for usage see test_stacked_rpc.py"""
+"""methods to put a stack of servers / proxies together to one instance"""
 
 def getServer(*stack):
     return getStacked('Server', *stack)

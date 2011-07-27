@@ -1,11 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+"""attaches server to an ipython-console
+this needs to be last server in stack"""
 
 import prototype
 from prototype import Proxy
 
 import IPython, sys
-
 
 class Server(prototype.Server):
 

@@ -20,7 +20,6 @@ import prototype
 
 import random, time, hashlib
 
-
 class Server(prototype.Server):
 
     def __init__(self, psk, **kwargs):
@@ -61,7 +60,6 @@ class Server(prototype.Server):
             self.token_counter_exhausted = token_counter
             return self.dispatch_next(method, next_params)
 
-
 class Proxy(prototype.Proxy):
 
     def __init__(self, psk, silent_reconnect=False, **kwargs):
@@ -88,7 +86,6 @@ class Proxy(prototype.Proxy):
                 return self.send(method, params, try_reconnect=False)
 
         return result
-
 
 def calc_auth_token(token_counter, psk, session_nonce):
     salted_secret = str(token_counter) + psk + session_nonce

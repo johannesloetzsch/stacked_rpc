@@ -1,12 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+"""shortcut to payload — (without listening server)"""
 
 import prototype
 from prototype import Server
 
-
 class Proxy(prototype.Proxy):
-    """shortcut to server"""
 
     def __init__(self, server, **kwargs):
         self.server = server

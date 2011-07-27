@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-"""every implementation of a layer/send-module should inherit from this Server&Proxy"""
+"""every implementation of a layer should inherit from this Server & Proxy"""
 
 import stacked_rpc.system
 
@@ -10,8 +10,8 @@ import select
 
 class Server():
     """Prototype of server (but already working when dispatch is called from outside).
-       When you implement your own server, you should only need to overwrite the dispatch-method
-       … and of course listen for requests and trigger dispatch for each of them"""
+       When you implement your own server, you should usually only need to overwrite the dispatch-method…
+       If it's not an intermediate layer, but an listening server, you should also implement a start- & stop-method"""
 
     def __init__(self, nextServer=None, host=None, port=None, payload=None, startIn='background', allow_none=True):
         self.nextServer = nextServer
@@ -82,7 +82,6 @@ class Server():
         finally:
             self.stop()
 
-
 class Proxy():
     """This prototype of proxy binds a proxy-object to the send-method (via GetAttrRecursive)
        If you implement your own proxy, you should only need to overwrite the send-method"""
@@ -149,7 +148,6 @@ class Proxy():
                     return [i[len(path):] for i in self.__proxy.send('system.listMethods', ()) if i.startswith(path)]
             """Method on Server"""
             return self.__proxy.send(self.__name, args)
-
 
 def instanceOf(obj):
     if str(type(obj)) == "<type 'classobj'>":

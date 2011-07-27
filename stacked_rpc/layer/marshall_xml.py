@@ -10,7 +10,6 @@ import prototype
 
 import xmlrpclib
 
-
 class Server(prototype.Server):
 
     def __init__(self, allow_none=True, **kwargs):
@@ -22,7 +21,6 @@ class Server(prototype.Server):
         params = tuple( decode(params[0]) )
         result = self.dispatch_next(method, params)
         return encode(result, allow_none=self.allow_none)
-
 
 class Proxy(prototype.Proxy):
 

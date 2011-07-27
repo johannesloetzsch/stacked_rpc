@@ -79,7 +79,6 @@
 >>> proxy = stacked_rpc.default.getDefaultProxy(psk=psk, port=testport)
 >>> assert proxy.extended_pong(testdata) == expected
 >>> server.stop()
-
 """
 
 import doctest
